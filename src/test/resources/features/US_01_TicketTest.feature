@@ -16,7 +16,7 @@ Feature: Succesfull Ticket Test
     And the user click Gidiş Tarihi
     And user chooses departure date June 13 th
     And user chooses return date June 20 th
-    And user selects the number of passengers as adult 1
+    And user selects the number of passengers as adult "1"
     And user click Hemen Ara Button
     Then user should see "İstanbul (IST) - Ankara (ANK) " title
 
