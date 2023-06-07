@@ -5,9 +5,8 @@ Feature: Succesfull Ticket Test
   Scenario: ticket test
     Given the user is on the home page
     Then the user should see "Jolly" in the title of the homepage
-    And the user should see the tab for selecting a trip
-    When the user click Uçak Bileti button
-    Then the user sees that the Uçak Bileti option is selected
+    When the user click Uçak Bileti link
+    Then the user should see Uçak Bileti Page
     And the user clicks on the round trip button
     Then the user should see the Dönüş Tarihi Option
     And the user clicks on the Nereden input

@@ -1,30 +1,45 @@
 package com.step_definitions;
 
+import com.pages.HomePage;
+import com.pages.PlanetTicketPage;
+import com.utilities.BrowserUtils;
+import com.utilities.ConfigurationReader;
+import com.utilities.Driver;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import static org.junit.Assert.*;
+import org.openqa.selenium.interactions.Actions;
 
 public class US_01_TicketTest_StepDef {
+
+    HomePage homePage = new HomePage();
+    PlanetTicketPage planetTicketPage = new PlanetTicketPage();
+    Actions actions = new Actions(Driver.getDriver());
+
     @Given("the user is on the home page")
     public void theUserIsOnTheHomePage() {
 
+        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
+        BrowserUtils.waitForPageToLoad(10);
     }
-
     @Then("the user should see {string} in the title of the homepage")
     public void theUserShouldSeeInTheTitleOfTheHomepage(String expectedHomePageTitle) {
+        String actualHomePageTitle = homePage.homePageTittle.getText();
+        assertEquals(expectedHomePageTitle,actualHomePageTitle);
+
     }
 
-    @And("the user should see the tab for selecting a trip")
-    public void theUserShouldSeeTheTabForSelectingATrip() {
+    @When("the user click Uçak Bileti link")
+    public void theUserClickUçakBiletiLink() {
+       BrowserUtils.waitForClickablility(homePage.uçakBiletiLink,10);
+        homePage.uçakBiletiLink.click();
     }
 
-    @When("the user click Uçak Bileti button")
-    public void theUserClickUçakBiletiButton() {
-    }
-
-    @Then("the user sees that the Uçak Bileti option is selected")
-    public void theUserSeesThatTheUçakBiletiOptionIsSelected() {
+    @Then("the user should see Uçak Bileti Page")
+    public void theUserShouldSeeUçakBiletiPage() {
+        
     }
 
     @And("the user clicks on the round trip button")
