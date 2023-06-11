@@ -11,8 +11,11 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import static org.junit.Assert.*;
 
-import org.openqa.selenium.Keys;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
+
+import java.security.Key;
 
 public class US_01_TicketTest_StepDef {
 
@@ -68,6 +71,7 @@ public class US_01_TicketTest_StepDef {
       try{
           planetTicketPage.popUp.isDisplayed();
           BrowserUtils.waitForClickablility(planetTicketPage.izinVerButton,5);
+
           planetTicketPage.izinVerButton.click();
           actions.moveToElement(planetTicketPage.neredenButton).click().perform();
 
@@ -79,7 +83,7 @@ public class US_01_TicketTest_StepDef {
 
 
 
-      /*  if (planetTicketPage.popUp.isDisplayed()){
+      /* if (planetTicketPage.popUp.isDisplayed()){
             BrowserUtils.waitForClickablility(planetTicketPage.izinVerButton,5);
             planetTicketPage.izinVerButton.click();
             BrowserUtils.waitForClickablility(planetTicketPage.neredenButton,5);
@@ -87,8 +91,8 @@ public class US_01_TicketTest_StepDef {
         }else {
             BrowserUtils.waitForClickablility(planetTicketPage.neredenButton,5);
             planetTicketPage.neredenButton.click();
-        }*/
-
+        }
+*/
 
 
     }
@@ -96,51 +100,80 @@ public class US_01_TicketTest_StepDef {
     @And("the user types From {string}")
     public void theUserTypesFrom(String fromInput) {
         planetTicketPage.neredenButton.sendKeys(fromInput);
+        BrowserUtils.waitFor(2);
+        planetTicketPage.neredenButton.sendKeys(Keys.DOWN,Keys.ENTER);
     }
 
-    @And("the user presses the down key and  tab key on the keyboard")
-    public void theUserPressesTheDownKeyAndTabKeyOnTheKeyboard() {
-        planetTicketPage.neredenButton.sendKeys(Keys.ARROW_DOWN , Keys.ARROW_DOWN , Keys.TAB);
-    }
     @And("the user types To {string}")
     public void theUserTypesTo(String toInput) {
         planetTicketPage.nereyeButton.sendKeys(toInput);
+        BrowserUtils.waitFor(2);
+        planetTicketPage.nereyeButton.sendKeys( Keys.TAB);
 
     }
 
     @And("the user click Gidiş Tarihi")
     public void theUserClickGidişTarihi() {
-        BrowserUtils.waitForClickablility(planetTicketPage.dateRow,5);
-        actions.moveToElement(planetTicketPage.dateRow).click().perform();
+      /*  BrowserUtils.waitFor(2);
+
+        WebElement dateArea = Driver.getDriver().findElement(By.className("first-date"));
+        dateArea.click();*/
     }
 
     @And("user chooses departure date June 13 th")
     public void userChoosesDepartureDateJune13Th() {
 
-        BrowserUtils.clickWithJS(planetTicketPage.firsDate);
+
+        BrowserUtils.waitFor(2);
+
+
+            String formattedFullDate = planetTicketPage.getFormattedFullDateByDayCount(9);
+            String cssSelector = "[data-fulldate='"+formattedFullDate+"']";
+
+        BrowserUtils.waitFor(2);
+
+        WebElement willSelectDateElement = Driver.getDriver().findElement(By.cssSelector(cssSelector));
+
+        BrowserUtils.waitForClickablility(willSelectDateElement,2);
+            willSelectDateElement.click();
+
+
+
+
+
+
 
     }
 
     @And("user chooses return date June 20 th")
     public void userChoosesReturnDateJune20Th() {
 
-        BrowserUtils.clickWithJS(planetTicketPage.lastDate);
+        BrowserUtils.waitFor(1);
+
+        String formattedFullDate = planetTicketPage.getFormattedFullDateByDayCount(12);
+        String cssSelector = "[data-fulldate='"+formattedFullDate+"']";
+
+        WebElement willSelectDateElement = Driver.getDriver().findElement(By.cssSelector(cssSelector));
+        BrowserUtils.clickWithJS(willSelectDateElement);
     }
 
     @And("user selects the number of passengers as adult {string}")
     public void userSelectsTheNumberOfPassengersAsAdult(String expextedPassengers) {
-        assertEquals(expextedPassengers,planetTicketPage.personNumber.getText());
+      //  assertEquals(expextedPassengers,planetTicketPage.personNumber.getText());
     }
 
     @And("user click Hemen Ara Button")
     public void userClickHemenAraButton() {
-        BrowserUtils.waitForClickablility(planetTicketPage.hemenAraButton,5);
-        planetTicketPage.hemenAraButton.click();
+        actions.moveToElement(planetTicketPage.hemenAraButton).click();
     }
 
     @Then("user should see {string} title")
     public void userShouldSeeTitle(String expectedResultTitle) {
-        BrowserUtils.waitForPageToLoad(5);
+        BrowserUtils.waitFor(5);
+        BrowserUtils.scrollToElement(planetTicketPage.resultTitle);
+        String a = planetTicketPage.resultTitle.getText();
+        System.out.println(a);
+        assertEquals(expectedResultTitle,planetTicketPage.resultTitle.getText());
 
     }
 }

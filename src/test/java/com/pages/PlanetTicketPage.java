@@ -17,22 +17,22 @@ public class PlanetTicketPage extends BasePage {
     @FindBy(id = "travelDestinationReturnSearch")
     public WebElement nereyeButton;
 
-    @FindBy(xpath = "//div[@class='list date completed']/div[@class='date-row']")
+    @FindBy(css = "div[class='list date completed']")
     public WebElement dateRow;
 
     @FindBy(xpath = "//div[@class='col last-date returning ']")
     public WebElement dönüşTarihi;
 
-    @FindBy(xpath = "//table[@class='ui-datepicker-calendar']/tbody/tr/td[@class=' highlight selected' and @data-fulldate='6132023']")
+    @FindBy(xpath = "//div[@id='flyDatepicker']//div//table//tr//td/a[.='23']")
     public WebElement firsDate;
 
-    @FindBy(xpath = "//table[@class='ui-datepicker-calendar']/tbody/tr/td[@class=' highlight selected' and @data-fulldate='6202023']")
+    @FindBy(xpath = "//div[@id='flyDatepicker']//div//table//tr//td/a[.='27']")
     public WebElement lastDate;
 
     @FindBy(xpath = "//div[@class='in-button']/span[@class='big-title active']")
     public WebElement personNumber;
 
-    @FindBy(xpath = "(//div[@class='list action-button'])[7]")
+    @FindBy(xpath = "//div[@class='list action-button']")
     public WebElement hemenAraButton;
 
     @FindBy(xpath = "(//div[@class='in']/span)[1]")
@@ -43,5 +43,12 @@ public class PlanetTicketPage extends BasePage {
 
     @FindBy(id = "web_push_evet")
     public WebElement izinVerButton;
+
+
+    @FindBy(xpath = "//div[@class='title']/h1")
+    public  WebElement resultTitle;
+
+
+
 
 }
